@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  student
+  professor
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String
+  role     Role
+  email    String  @unique
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  availabilities Availability[]
+  appointmentsAsStudent Appointment[] @relation("StudentAppointments")
+  appointmentsAsProfessor Appointment[] @relation("ProfessorAppointments")
+}
+
+model Availability {
+  id           Int       @id @default(autoincrement())
+  professorId  Int
+  timeSlot     DateTime
+  professor    User      @relation(fields: [professorId], references: [id])
+}
+
+model Appointment {
+  id          Int       @id @default(autoincrement())
+  professorId Int
+  studentId   Int
+  timeSlot    DateTime
+  status      String    @default("active")
+
+  professor   User      @relation("ProfessorAppointments", fields: [professorId], references: [id])
+  student     User      @relation("StudentAppointments", fields: [studentId], references: [id])
+}

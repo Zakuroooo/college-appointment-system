@@ -3,7 +3,6 @@ const prisma = require("../utils/prismaClient");
 exports.addAvailability = async (req, res) => {
   const { timeSlot } = req.body;
 
-  // Ensure the user is a professor
   if (req.user.role !== "professor") {
     return res
       .status(403)
@@ -14,7 +13,7 @@ exports.addAvailability = async (req, res) => {
     const availability = await prisma.availability.create({
       data: {
         timeSlot,
-        professorId: req.user.id, // Use the professor's ID from the token
+        professorId: req.user.id,
       },
     });
     res

@@ -1,5 +1,5 @@
 const express = require("express");
-const authenticateToken = require("../middleware/authMiddleware"); // Ensure middleware is imported
+const authenticateToken = require("../middleware/authMiddleware");
 const {
   bookAppointment,
   getAppointments,
@@ -8,8 +8,8 @@ const {
 
 const router = express.Router();
 
-router.post("/:professorId/book", authenticateToken, bookAppointment); // Define POST
-router.get("/", authenticateToken, getAppointments); // Define GET /
-router.delete("/:appointmentId", authenticateToken, cancelAppointment); // Define DELETE /:appointmentId
+router.post("/:professorId/book", authenticateToken, bookAppointment);
+router.get("/", authenticateToken, getAppointments);
+router.delete("/:appointmentId", authenticateToken, cancelAppointment);
 
 module.exports = router;

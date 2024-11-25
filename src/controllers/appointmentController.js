@@ -77,7 +77,6 @@ exports.bookAppointment = async (req, res) => {
 };
 
 exports.getAppointments = async (req, res) => {
-  // CHANGED: Check if user is professor or student
   const userId = req.user.id;
   const userRole = req.user.role;
 
@@ -102,7 +101,6 @@ exports.cancelAppointment = async (req, res) => {
   console.log("Cancel Appointment Request:", { appointmentId });
 
   try {
-    // Ensure that the appointmentId is provided and valid
     const appointment = await prisma.appointment.findUnique({
       where: { id: parseInt(appointmentId) },
     });

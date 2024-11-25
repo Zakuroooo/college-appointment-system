@@ -9,7 +9,6 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// Register routes
 app.use("/api/auth", authRoutes);
 app.use("/api/availability", availabilityRoutes);
 app.use("/api/appointments", appointmentRoutes);
